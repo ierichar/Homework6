@@ -154,7 +154,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Ball.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="UIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
@@ -166,7 +166,7 @@
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

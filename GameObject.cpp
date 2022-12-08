@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include <iostream>
 
 using namespace sf;
 using namespace gm;
@@ -27,32 +26,37 @@ void GameObject::setPosition(const Vector2f& position) {
 	collider.top = position.y;
 }
 
+void GameObject::move(const Vector2f& force)
+{
+	this->position.x += force.x;
+	this->position.y += force.y;
+}
+
 // Our collider getter
-const sf::FloatRect& gm::GameObject::getCollider() const
+const FloatRect& gm::GameObject::getCollider() const
 {
 	return collider;
 }
 
-bool gm::GameObject::collide(const Vector2f& point) const
+bool GameObject::collide(const Vector2f& point) const
 {
 	return collider.contains(point);
 }
 
-bool gm::GameObject::collide(const sf::Vector2i& point) const
+bool GameObject::collide(const Vector2i& point) const
 {
 	Vector2f newVec = Vector2f(point);
 	return collider.contains(newVec);
 }
 
-bool gm::GameObject::collide(const FloatRect& point) const
+bool GameObject::collide(const FloatRect& point) const
 {
 	return collider.intersects(point);
 }
 
-sf::Vector2f& gm::GameObject::intersect(const sf::Vector2f& point) const
+gm::GameObject::~GameObject()
 {
-	// TODO: insert return statement here
-	
+	// TODO: free data
 }
 
 

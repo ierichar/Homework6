@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BRICK_H
+#define BRICK_H
+
 #include "GameObject.h"
 
 namespace gm {
@@ -8,8 +10,7 @@ namespace gm {
     struct BrickType
     {
         int hp;
-        Color col;
-        SoundBuffer* buf;
+        sf::Color col;
 
     };
 
@@ -18,16 +19,15 @@ namespace gm {
     {
     private:
         sf::RectangleShape body;
-        const gm::BrickType* type;
+        const BrickType* type;
         int hp; // set max hp in game settings
         bool isAlive;
     public:
-        Brick(gm::BrickType* t, const sf::Vector2f& position,
-            const sf::Vector2f& size);
+        Brick(BrickType* t, const sf::Vector2f& position, const sf::Vector2f& size);
         virtual void update(sf::RenderWindow& window);
         virtual void render(sf::RenderWindow& window);
         virtual void setPosition(const sf::Vector2f& position);
-        virtual void move(const sf::Vector2f& force) override;
+        //virtual void move(const sf::Vector2f& force) override;
         void setAlive(const bool isAlive);
         const bool getAlive();
         void setHealth(const int hp);
@@ -38,3 +38,4 @@ namespace gm {
     };
 }
 
+#endif

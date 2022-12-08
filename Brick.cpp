@@ -3,7 +3,7 @@
 using namespace gm;
 using namespace sf;
 
-gm::Brick::Brick(BrickType* t, const sf::Vector2f& position, const sf::Vector2f& size)
+Brick::Brick(BrickType* t, const sf::Vector2f& position, const sf::Vector2f& size)
 	: GameObject(position, size)
 {
 	type = t;

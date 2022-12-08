@@ -14,11 +14,12 @@ namespace gm {
 	{
 	private:
 		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy, loseLife;
-		sf::SoundBuffer normalBrickSound, tough_brick_sound;
+		sf::SoundBuffer normal_brick_sound, tough_brick_sound;
 
 		sf::Sound sound;
 
 	public:
+
 		SoundManager();
 		void play(std::string cue);
 		void restart();

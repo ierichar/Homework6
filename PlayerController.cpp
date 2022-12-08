@@ -1,9 +1,7 @@
 #include "PlayerController.h"
-#include <iostream>
 
 using namespace sf;
 using namespace gm;
-using namespace std;	// debug
 
 
 gm::PlayerController::PlayerController(Paddle* paddle)

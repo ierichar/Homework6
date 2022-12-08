@@ -4,44 +4,54 @@ using namespace gm;
 using namespace sf;
 using namespace std;
 
-BrickType normal_brick = {
-	1,
-	Color::White,
-	&normalBrickSound
-};
-BrickType tough_brick = {
-	2,
-	Color::Red,
-	&tough_brick_sound
-};
-
-gm::Level::Level(vector<pair<BrickType, Vector2f>> v)
+gm::Level::Level(vector<pair<BrickType*, Vector2f>> v)
 {
+	Brick* newBrick;
 	short i = 0;
 	numBricks = v.size();
 	for (auto it = v.begin(); it != v.end(); ++it)
 	{
-		bricks[i] = new Brick(it->first, it->second, Vector2f(BRICK_WIDTH, BRICK_HEIGHT));
+		newBrick = new Brick(it->first, it->second,
+			Vector2f(BRICK_WIDTH, BRICK_HEIGHT));
+
+		bricks.push_back(*newBrick);
 	}
 }
 
 void gm::Level::update(sf::RenderWindow& window)
 {
+	for (auto it = bricks.begin(); it != bricks.end(); ++it)
+	{
+		it->update(window);
+	}
 }
 
 void gm::Level::render(sf::RenderWindow& window)
 {
+	for (auto it = bricks.begin(); it != bricks.end(); ++it)
+	{
+		it->render(window);
+	}
 }
 
-Brick* gm::Level::getBricks()
+vector<Brick>& gm::Level::getBricks()
 {
-	return nullptr;
+	return bricks;
 }
 
 void gm::Level::reset()
 {
+	for (auto it = bricks.begin(); it != bricks.end(); ++it)
+	{
+		it->reset();
+	}
 }
 
 gm::Level::~Level()
 {
+	for (auto it = bricks.begin(); it != bricks.end(); ++it)
+	{
+		delete &it;
+		bricks.erase(it);
+	}
 }

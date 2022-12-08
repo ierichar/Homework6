@@ -1,12 +1,14 @@
-#include "UI.h"
+#include "UIManager.h"
 
 using namespace gm;
 using namespace sf;
 using namespace std;
 
-UI::UI() : position(Vector2f(GAME_WIDTH /2, GAME_HEIGHT / 2)),
-	str_text("Left Click to START")
+UIManager::UIManager()
 {
+	str_text = "Left Click to START";
+	position = Vector2f(825 / 2, 825 / 2);
+
 	text = new Text();
 	if (!font.loadFromFile("Assets/clover-sans.ttf")) {
 		//error
@@ -18,39 +20,42 @@ UI::UI() : position(Vector2f(GAME_WIDTH /2, GAME_HEIGHT / 2)),
 	text->setPosition(this->position);
 }
 
-void UI::update(RenderWindow& window)
+void UIManager::update(RenderWindow& window)
 {
 	text->setString(str_text);
 	text->setPosition(this->position);
 }
 
-void UI::render(RenderWindow& window)
+void UIManager::render(RenderWindow& window)
 {
 	window.draw(*text);
 }
 
-const string& UI::getString()
+const string& UIManager::getString()
 {
 	return str_text;
 }
 
-void UI::setString(const std::string str_text)
+void UIManager::setString(const std::string str_text)
 {
 	this->str_text = str_text;
 }
 
-const sf::Vector2f& UI::getPosition()
+const sf::Vector2f& UIManager::getPosition()
 {
 	return this->position;
 }
 
-void UI::setPosition(const sf::Vector2f& position)
+void UIManager::setPosition(const sf::Vector2f& position)
 {
 	this->position = position;
 }
 
-gm::UI::~UI()
+UIManager::~UIManager()
 {
 	// Clean up text objects
 	delete text;
+	text = nullptr;
+
+	delete this;
 }

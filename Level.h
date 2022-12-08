@@ -2,13 +2,24 @@
 #define LEVEL_H
 
 #include "Game.h"
+#include "Brick.h"
 
 namespace gm {
-	class Level
+	BrickType normal_brick = {
+		1,
+		sf::Color::White,
+	};
+
+	BrickType tough_brick = {
+		2,
+		sf::Color::Red,
+	};
+
+	class Level 
 	{
 	private:
 		int numBricks;
-		Brick* bricks;
+		std::vector<Brick> bricks;
 	public:
 		// Constructor
 		// Takes a 2d array of ints / Enums(indicating what type of brick and where
@@ -16,13 +27,13 @@ namespace gm {
 		// vector(i.e., object list) of all bricks in the level.Should create the 
 		// brick objects with appropriate x / y position and BrickType and add them
 		// to the object list
-		Level(std::vector<std::pair<BrickType, sf::Vector2f>> v);
+		Level(std::vector<std::pair<BrickType*, sf::Vector2f>> v);
 
 		void update(sf::RenderWindow& window);
 		void render(sf::RenderWindow& window);
 
 		// Returns a reference or pointer to the object list of Bricks
-		Brick* getBricks();
+		std::vector<Brick>& getBricks();
 
 		// Resets all bricks in the level back to their default 
 		// state(alive again with full health)

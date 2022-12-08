@@ -31,5 +31,5 @@ void gm::SoundManager::stop()
 
 gm::SoundManager::~SoundManager()
 {
-
+	delete this;
 }

@@ -8,6 +8,7 @@ using namespace gm;
 // Main, our applicaiton entry function
 int main()
 {
+
     Game game;
 
     game.run();

@@ -14,7 +14,7 @@
 #include <SFML/Main.hpp>
 
  /* Our Includes */
-#include "UI.h"
+#include "UIManager.h"
 #include "SoundManager.h"
 #include "PlayerController.h"
 #include "Level.h"
@@ -41,14 +41,15 @@ namespace gm {
 
 	/* Our Game Class                               *
 	 * Implements the Game Loop Programming Pattern */
-	class Game {
+	class Game 
+	{
 	private:
 		sf::RenderWindow window;		// Game window
 
-		SoundManager soundManager;		// Sound Manager
-		UI ui;							// UI
-		PlayerController pController;	// Player controller
-		Level level1, level2, level3;
+		SoundManager sound_manager;
+		UIManager ui_manager;
+		PlayerController player_controller;	
+		Level* level;
 
 		Paddle p1;
 		Paddle leftWall, rightWall, ceiling, floor;
@@ -56,6 +57,7 @@ namespace gm {
 		Ball ball;
 
 		bool isGameStart;
+		int currentLevel;
 
 	public:
 		/* Protoypes */
@@ -67,6 +69,7 @@ namespace gm {
 		void handleInput();
 		void update();
 		void render();
+		void startLevel(const short level);
 		// Destructor
 		~Game();
 	};

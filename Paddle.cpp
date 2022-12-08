@@ -1,9 +1,7 @@
 #include "Paddle.h"
-#include <iostream>
 
 using namespace sf;
 using namespace gm;
-using namespace std;
 
 Paddle::Paddle(const sf::Vector2f& position, const sf::Vector2f& size)
 	: GameObject(position, size) {
@@ -30,5 +28,5 @@ void Paddle::move(const Vector2f& force)
 
 Paddle::~Paddle()
 {
-
+	delete this;
 }

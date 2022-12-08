@@ -20,10 +20,12 @@ Game::Game() : window(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Game"),
 	
 	// Initialize the number of boxes
 
-	isGameStart(false), pController(&p1) {
+	isGameStart(false), 
+	sound_manager(), ui_manager(), player_controller(&p1), level(nullptr) {
 
 	// Set our fps to 60
 	window.setFramerateLimit(60);
+	currentLevel = 0;
 }
 
 void Game::run() {
@@ -60,14 +62,15 @@ void Game::handleInput() {
 				isGameStart = true;
 
 				// Ball, p1, p2 positions
-				ball.setPosition(Vector2f(
-					GAME_WIDTH / 2 - BALL_RADIUS, GAME_HEIGHT / 2 - BALL_RADIUS));
 				p1.setPosition(Vector2f(
 					GAME_WIDTH / 2 - PADDLE_WIDTH / 2, GAME_HEIGHT - PADDLE_HEIGHT * 2));
+				ball.setPosition(Vector2f(
+					p1.getPosition().x, p1.getPosition().y - BALL_RADIUS));
 			}
-			else {
-				pController.handleInput(event);
-			}
+		}
+
+		if (event.type == Event::MouseMoved) {
+			player_controller.handleInput(event);
 		}
 	}
 }
@@ -76,7 +79,7 @@ void Game::handleInput() {
 void Game::update() {
 	if (ball.collide(p1.getCollider())) {
 		//sound.setBuffer(paddleBounce);
-		soundManager.play("paddleBounce");
+		sound_manager.play("paddleBounce");
 		ball.bounce(Vector2f(0, -1));
 	}
 
@@ -91,7 +94,7 @@ void Game::render() {
 	// This clears the window at the beginning of every frame
 	window.clear();
 
-	ui.render(window);
+	ui_manager.render(window);
 
 	p1.render(window);
 	ball.render(window);
@@ -105,9 +108,41 @@ void Game::render() {
 	window.display();
 }
 
-void Game::startLevel();
+void Game::startLevel(const short lvl_num)
+{
+	if (level != nullptr)
+	{
+		delete level;
+	}
+
+	// TODO: start level based on number input
+	if (lvl_num == 1)
+	{
+		// Set 2D array as
+	}
+	if (lvl_num == 2)
+	{
+
+	}
+	if (lvl_num == 3)
+	{
+
+	}
+	
+	// Reposition ball, paddle, score, bricks
+	isGameStart = true;
+
+	// Ball, p1, p2 positions
+	p1.setPosition(Vector2f(
+		GAME_WIDTH / 2 - PADDLE_WIDTH / 2, GAME_HEIGHT - PADDLE_HEIGHT * 2));
+	ball.setPosition(Vector2f(
+		p1.getPosition().x, p1.getPosition().y - BALL_RADIUS));
+}
 
 // Implement destructor, make sure we free up any memory that we allocated here!
 Game::~Game() {
-
+	if (level != nullptr)
+	{
+		delete level;
+	}
 }

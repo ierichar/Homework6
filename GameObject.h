@@ -42,7 +42,8 @@ namespace gm {
 		// Our position setter, NOTE the pass by const reference
 		virtual void setPosition(const sf::Vector2f& position);
 
-		virtual void move(const sf::Vector2f& force) = 0;
+		// Apply vector force to move gameobject
+		virtual void move(const sf::Vector2f& force);
 
 		// Our collision getter, NOTE the const reference return and marking the method itself const
 		virtual const sf::FloatRect& getCollider() const;
@@ -53,10 +54,9 @@ namespace gm {
 
 		virtual bool collide(const sf::FloatRect& rect) const;
 
-		virtual sf::Vector2f& intersect(const sf::Vector2f& point) const;
+		// virtual sf::Vector2f& intersect(const sf::Vector2f& point) const;
 
-		// Apply vector force to move gameobject
-		virtual void move(const sf::Vector2f& force) = 0;
+		~GameObject();
 	};
 }
 
