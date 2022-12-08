@@ -1,6 +1,8 @@
 #ifndef SOUND_MANAGER_H
 #define SOUND_MANAGER_H
 
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
@@ -13,15 +15,12 @@ namespace gm {
 	class SoundManager
 	{
 	private:
-		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy, loseLife;
-		sf::SoundBuffer normal_brick_sound, tough_brick_sound;
-
 		sf::Sound sound;
 
 	public:
 
 		SoundManager();
-		void play(std::string cue);
+		void playSFX(sf::SoundBuffer* cue);
 		void restart();
 		void stop();
 		~SoundManager();

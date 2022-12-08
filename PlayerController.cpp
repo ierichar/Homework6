@@ -11,14 +11,18 @@ gm::PlayerController::PlayerController(Paddle* paddle)
 
 void gm::PlayerController::handleInput(Event event)
 {
-	if (event.type == Event::MouseMoved) {
-		paddle->setPosition(Vector2f(paddle->getPosition().y, Mouse::getPosition().x));
+	if (paddle->getPosition().x > Mouse::getPosition().x)
+	{
+		paddle->move(Vector2f(-1, 0));
+	}
+	else if (paddle->getPosition().x < Mouse::getPosition().x) {
+		paddle->move(Vector2f(1, 0));
 	}
 }
 
-void gm::PlayerController::update()
+void gm::PlayerController::update(RenderWindow& window)
 {
-
+	paddle->update(window);
 }
 
 PlayerController::~PlayerController()

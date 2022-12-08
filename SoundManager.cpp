@@ -7,16 +7,14 @@ gm::SoundManager::SoundManager()
 {
 	sound.setVolume(MASTER_VOLUME);
 
-	paddleBounce.loadFromFile("Assets/BGM.wav");
-	sound.setBuffer(paddleBounce);
+	//paddleBounce.loadFromFile("Assets/BGM.wav");
+	//sound.setBuffer(paddleBounce);
 }
 
-void gm::SoundManager::play(std::string cue)
+void gm::SoundManager::playSFX(sf::SoundBuffer* cue)
 {
-	if (cue == "bgm") {
-		sound.setBuffer(paddleBounce);
-		sound.play();
-	}
+	//sound.setBuffer(paddleBounce);
+	//sound.play();
 }
 
 void gm::SoundManager::restart()
@@ -31,5 +29,5 @@ void gm::SoundManager::stop()
 
 gm::SoundManager::~SoundManager()
 {
-	delete this;
+
 }

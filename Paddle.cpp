@@ -23,10 +23,10 @@ void Paddle::render(sf::RenderWindow& window)
 void Paddle::move(const Vector2f& force)
 {
 	this->GameObject::setPosition(getPosition() +
-		Vector2f(force.x, force.y * PADDLE_SPEED));
+		Vector2f(force.x * PADDLE_SPEED, force.y * PADDLE_SPEED));
 }
 
 Paddle::~Paddle()
 {
-	delete this;
+
 }

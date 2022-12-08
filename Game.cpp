@@ -69,17 +69,17 @@ void Game::handleInput() {
 			}
 		}
 
-		if (event.type == Event::MouseMoved) {
-			player_controller.handleInput(event);
-		}
+		player_controller.handleInput(event);
 	}
 }
 
 // Implements the update portion of our Game Loop Programming Pattern
 void Game::update() {
+	player_controller.update(window);
+
 	if (ball.collide(p1.getCollider())) {
 		//sound.setBuffer(paddleBounce);
-		sound_manager.play("paddleBounce");
+		//sound_manager.playSFX(&paddleBounce);
 		ball.bounce(Vector2f(0, -1));
 	}
 
@@ -108,6 +108,14 @@ void Game::render() {
 	window.display();
 }
 
+// Implement destructor, make sure we free up any memory that we allocated here!
+Game::~Game() {
+	if (level != nullptr)
+	{
+		delete level;
+	}
+}
+
 void Game::startLevel(const short lvl_num)
 {
 	if (level != nullptr)
@@ -128,7 +136,7 @@ void Game::startLevel(const short lvl_num)
 	{
 
 	}
-	
+
 	// Reposition ball, paddle, score, bricks
 	isGameStart = true;
 
@@ -137,12 +145,4 @@ void Game::startLevel(const short lvl_num)
 		GAME_WIDTH / 2 - PADDLE_WIDTH / 2, GAME_HEIGHT - PADDLE_HEIGHT * 2));
 	ball.setPosition(Vector2f(
 		p1.getPosition().x, p1.getPosition().y - BALL_RADIUS));
-}
-
-// Implement destructor, make sure we free up any memory that we allocated here!
-Game::~Game() {
-	if (level != nullptr)
-	{
-		delete level;
-	}
 }

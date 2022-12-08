@@ -1,20 +1,17 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include "Game.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/System.hpp>
+#include <SFML/OpenGL.hpp>
+#include <SFML/Main.hpp>
+
 #include "Brick.h"
 
 namespace gm {
-	BrickType normal_brick = {
-		1,
-		sf::Color::White,
-	};
-
-	BrickType tough_brick = {
-		2,
-		sf::Color::Red,
-	};
-
 	class Level 
 	{
 	private:

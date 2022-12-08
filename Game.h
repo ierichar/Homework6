@@ -44,12 +44,12 @@ namespace gm {
 	class Game 
 	{
 	private:
-		sf::RenderWindow window;		// Game window
+		sf::RenderWindow window;			// Game Window
 
-		SoundManager sound_manager;
-		UIManager ui_manager;
-		PlayerController player_controller;	
-		Level* level;
+		SoundManager sound_manager;			// Sound Manager
+		UIManager ui_manager;				// UI Manager
+		PlayerController player_controller;	// Player Controller
+		Level* level;						// Level (ref)
 
 		Paddle p1;
 		Paddle leftWall, rightWall, ceiling, floor;
@@ -58,6 +58,21 @@ namespace gm {
 
 		bool isGameStart;
 		int currentLevel;
+
+		// BrickTypes
+		BrickType normal_brick = {
+			1,
+			sf::Color::White,
+		};
+
+		BrickType tough_brick = {
+			2,
+			sf::Color::Red,
+		};
+
+		// SoundBuffers
+		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy, loseLife;
+		sf::SoundBuffer normal_brick_sound, tough_brick_sound;
 
 	public:
 		/* Protoypes */
@@ -69,9 +84,11 @@ namespace gm {
 		void handleInput();
 		void update();
 		void render();
-		void startLevel(const short level);
 		// Destructor
 		~Game();
+
+		// Helper functions
+		void startLevel(const short level);
 	};
 }
 

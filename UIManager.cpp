@@ -14,7 +14,7 @@ UIManager::UIManager()
 		//error
 	}
 	text->setCharacterSize(TEXT_SIZE);
-	text->setFont(font);
+	//text->setFont(font);
 	text->setFillColor(Color::White);
 	text->setString(str_text);
 	text->setPosition(this->position);
@@ -57,5 +57,4 @@ UIManager::~UIManager()
 	delete text;
 	text = nullptr;
 
-	delete this;
 }

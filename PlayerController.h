@@ -8,11 +8,13 @@ namespace gm {
 	{
 	private:
 		Paddle* paddle;
-		// include key codes for multiple players
+		
+		// Mouse position to update
+		Vector2f mousePos;
 	public:
 		PlayerController(Paddle* paddle);
 		void handleInput(sf::Event event);
-		void update();
+		void update(sf::RenderWindow& window);
 		~PlayerController();
 	};
 }

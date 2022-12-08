@@ -1,7 +1,13 @@
 #ifndef UI_MANAGER_H
 #define UI_MANAGER_H
 
-#include "Game.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/System.hpp>
+#include <SFML/OpenGL.hpp>
+#include <SFML/Main.hpp>
 
 namespace gm {
 	// Constants
