@@ -5,19 +5,20 @@ using namespace gm;
 
 Paddle::Paddle(const sf::Vector2f& position, const sf::Vector2f& size)
 	: GameObject(position, size) {
-	body.setPosition(position);
-	body.setSize(size);
+	body = new RectangleShape();
+	body->setPosition(position);
+	body->setSize(size);
 }
 
 void Paddle::update(sf::RenderWindow& window)
 {
 	this->GameObject::setPosition(position);
-	body.setPosition(position);
+	body->setPosition(position);
 }
 
 void Paddle::render(sf::RenderWindow& window)
 {
-	window.draw(body);
+	window.draw(*body);
 }
 
 void Paddle::move(const Vector2f& force)
@@ -28,5 +29,6 @@ void Paddle::move(const Vector2f& force)
 
 Paddle::~Paddle()
 {
-
+	delete body;
+	body = nullptr;
 }

@@ -31,13 +31,11 @@ namespace gm {
 	// Game Settings
 	const short GAME_WIDTH = 825;
 	const short GAME_HEIGHT = 825;
-	const short PADDING = 20;
+	const short PADDING = 5;
 
-	const short PADDLE_WIDTH = 100;
-	const short PADDLE_HEIGHT = 20;
-
-	const short BALL_RADIUS = 20;
-	const short NUM_OF_BOXES = 112;
+	const short ROWS = 8;
+	const short COLUMNS = 14;
+	const short NUM_OF_BRICKS = 112;
 
 	/* Our Game Class                               *
 	 * Implements the Game Loop Programming Pattern */
@@ -49,15 +47,6 @@ namespace gm {
 		SoundManager sound_manager;			// Sound Manager
 		UIManager ui_manager;				// UI Manager
 		PlayerController player_controller;	// Player Controller
-		Level* level;						// Level (ref)
-
-		Paddle p1;
-		Paddle leftWall, rightWall, ceiling, floor;
-
-		Ball ball;
-
-		bool isGameStart;
-		int currentLevel;
 
 		// BrickTypes
 		BrickType normal_brick = {
@@ -69,6 +58,20 @@ namespace gm {
 			2,
 			sf::Color::Red,
 		};
+
+		Level* level;						// Level (ref)
+
+		Paddle p1;
+		Paddle leftWall, rightWall, ceiling, floor;
+
+		Ball ball;
+
+		// Game Values
+		int currentLevel;
+		short p1Score = 0;
+		short p1Lives = 0;	// Classic game rules: reach 4 lives = game over
+
+		bool isGameStart;
 
 		// SoundBuffers
 		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy, loseLife;

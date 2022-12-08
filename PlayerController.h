@@ -10,7 +10,7 @@ namespace gm {
 		Paddle* paddle;
 		
 		// Mouse position to update
-		Vector2f mousePos;
+		sf::Vector2f moveLeft, moveRight;
 	public:
 		PlayerController(Paddle* paddle);
 		void handleInput(sf::Event event);

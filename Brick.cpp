@@ -59,5 +59,5 @@ void Brick::reset()
 
 Brick::~Brick()
 {
-	delete this;
+
 }

@@ -5,13 +5,12 @@
 
 namespace gm {
     const short BRICK_WIDTH = 50;
-    const short BRICK_HEIGHT = 25;
+    const short BRICK_HEIGHT = 10;
 
     struct BrickType
     {
         int hp;
         sf::Color col;
-
     };
 
     class Brick :

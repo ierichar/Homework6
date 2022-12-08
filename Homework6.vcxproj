@@ -168,6 +168,15 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\clover-sans.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\paddle_bounce.wav" />
+    <Media Include="Assets\score.wav" />
+    <Media Include="Assets\victory.wav" />
+    <Media Include="Assets\wall_bounce.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

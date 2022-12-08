@@ -9,14 +9,14 @@ using namespace std;
 
 // Implement constructor, this will effectively be a setup function as the game gets more complex
 Game::Game() : window(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Game"),
-	p1(Vector2f(0 + PADDLE_WIDTH + 2*PADDING, GAME_HEIGHT/2 - PADDLE_HEIGHT/2), Vector2f(PADDLE_WIDTH, PADDLE_HEIGHT)),
+	p1(Vector2f(0 + PADDLE_WIDTH + 2*PADDING, GAME_HEIGHT - 5*PADDLE_HEIGHT), Vector2f(PADDLE_WIDTH, PADDLE_HEIGHT)),
 	
 	leftWall(Vector2f(0, 0), Vector2f(PADDING, GAME_HEIGHT)),
 	rightWall(Vector2f(GAME_WIDTH - PADDING, 0), Vector2f(PADDING, GAME_HEIGHT)),
 	ceiling(Vector2f(0, 0), Vector2f(GAME_WIDTH, PADDING)),
 	floor(Vector2f(0, GAME_HEIGHT - PADDING), Vector2f(GAME_WIDTH, PADDING)),
 
-	ball(Vector2f(GAME_WIDTH/2 - BALL_RADIUS, GAME_HEIGHT/6 - BALL_RADIUS),  BALL_RADIUS),
+	ball(Vector2f(p1.getPosition().x, p1.getPosition().y - 2*BALL_RADIUS), BALL_RADIUS),
 	
 	// Initialize the number of boxes
 
@@ -25,7 +25,7 @@ Game::Game() : window(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Game"),
 
 	// Set our fps to 60
 	window.setFramerateLimit(60);
-	currentLevel = 0;
+	currentLevel = 1;
 }
 
 void Game::run() {
@@ -56,16 +56,14 @@ void Game::handleInput() {
 		if (event.type == Event::Closed)
 			window.close();
 
-		if (event.type == Event::KeyPressed) {
-			if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+		if (event.type == Event::MouseButtonPressed && isGameStart == false) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
 				// Reset Game
 				isGameStart = true;
 
-				// Ball, p1, p2 positions
-				p1.setPosition(Vector2f(
-					GAME_WIDTH / 2 - PADDLE_WIDTH / 2, GAME_HEIGHT - PADDLE_HEIGHT * 2));
-				ball.setPosition(Vector2f(
-					p1.getPosition().x, p1.getPosition().y - BALL_RADIUS));
+				startLevel(currentLevel);
+
+				ball.move(Vector2f(Random::Range(-0.5f, 0.5f), -1.f));
 			}
 		}
 
@@ -77,13 +75,23 @@ void Game::handleInput() {
 void Game::update() {
 	player_controller.update(window);
 
+	if (level != nullptr) {
+		level->update(window);
+	}
+
 	if (ball.collide(p1.getCollider())) {
 		//sound.setBuffer(paddleBounce);
 		//sound_manager.playSFX(&paddleBounce);
 		ball.bounce(Vector2f(0, -1));
 	}
 
-	p1.update(window);
+	if (ball.collide(floor.getCollider())) {
+		isGameStart = false;
+
+		ui_manager.setString("GAME OVER");
+	}
+
+	//p1.update(window);
 	if (isGameStart) {
 		ball.update(window);
 	}
@@ -99,6 +107,9 @@ void Game::render() {
 	p1.render(window);
 	ball.render(window);
 
+	if (level != nullptr)
+		level->render(window);
+
 	leftWall.render(window);
 	rightWall.render(window);
 	ceiling.render(window);
@@ -113,6 +124,7 @@ Game::~Game() {
 	if (level != nullptr)
 	{
 		delete level;
+		level = nullptr;
 	}
 }
 
@@ -121,12 +133,48 @@ void Game::startLevel(const short lvl_num)
 	if (level != nullptr)
 	{
 		delete level;
+		level = nullptr;
 	}
 
 	// TODO: start level based on number input
 	if (lvl_num == 1)
 	{
-		// Set 2D array as
+		// Set 2D array of bricktypes and position
+		vector<pair<BrickType*, Vector2f>> newLevel;
+		Vector2f startPos = Vector2f(
+			ceiling.getPosition().y + PADDING,
+			leftWall.getPosition().x + PADDING);
+		BrickType* brickType = &tough_brick;
+
+		// LEVEL 1 - 2 rows of tough, 2 of normal then repeat again
+		for (short i = 0; i < NUM_OF_BRICKS; i++)
+		{
+			if (i == NUM_OF_BRICKS / 4) {
+				// switch to normal brick type
+				brickType = &normal_brick;
+			}
+			else if (i == NUM_OF_BRICKS / 2) {
+				brickType = &tough_brick;
+			}
+			else if (i == NUM_OF_BRICKS * 3 / 4) {
+				brickType = &normal_brick;
+			}
+			
+			// Create pair
+			pair<BrickType*, Vector2f> newPair = make_pair(brickType, startPos);
+			newLevel.push_back(newPair);
+
+			// Set new pos
+			if (i % COLUMNS == 0) {
+				// New row
+				startPos.x = leftWall.getPosition().x + PADDING;
+				startPos.y += BRICK_HEIGHT;
+			}
+			else {
+				startPos.x += BRICK_WIDTH + PADDING;
+			}
+		}
+		level = new Level(newLevel);
 	}
 	if (lvl_num == 2)
 	{

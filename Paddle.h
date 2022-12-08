@@ -6,11 +6,14 @@
 #define PADDLE_SPEED 10.0f
 
 namespace gm {
+	const short PADDLE_WIDTH = 100;
+	const short PADDLE_HEIGHT = 20;
+
 	class Paddle :
 		public GameObject
 	{
 	private:
-		sf::RectangleShape body;
+		sf::RectangleShape* body;
 	public:
 		Paddle(const sf::Vector2f& position, const sf::Vector2f& size);
 

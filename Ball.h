@@ -9,6 +9,8 @@
 #define BALL_SPEED 5.0f
 
 namespace gm {
+    const float BALL_RADIUS = 20.f;
+
     class Ball :
         public GameObject
     {

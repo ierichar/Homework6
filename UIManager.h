@@ -18,16 +18,13 @@ namespace gm {
 	{
 	protected:
 
-		// Game Values
-		short p1Score = 0;
-
 		// Position
 		sf::Vector2f position;
 
 		// Text
 		sf::Font font;
 		sf::Text* text;
-		std::string str_text;
+		std::string str_text, score_text, lives_text;
 
 	public:
 		UIManager();
