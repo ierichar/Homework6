@@ -1,4 +1,5 @@
 #include "Level.h"
+#include <iostream>
 
 using namespace gm;
 using namespace sf;
@@ -6,37 +7,38 @@ using namespace std;
 
 gm::Level::Level(vector<pair<BrickType*, Vector2f>> v)
 {
+	
 	Brick* newBrick;
-	short i = 0;
 	size = v.size();
 	for (auto it = v.begin(); it != v.end(); ++it)
 	{
 		newBrick = new Brick(it->first, it->second,
 			Vector2f(BRICK_WIDTH, BRICK_HEIGHT));
 
-		bricks.push_back(*newBrick);
+		bricks.push_back(make_unique<Brick>(*newBrick));
+		newBrick = nullptr;
 	}
 }
 
 void gm::Level::update(sf::RenderWindow& window)
 {
-	for (auto it = bricks.begin(); it != bricks.end(); ++it)
+	for (auto& i : bricks)
 	{
-		it->update(window);
+		//i->update(window);
 	}
 }
 
 void gm::Level::render(sf::RenderWindow& window)
 {
-	for (auto it = bricks.begin(); it != bricks.end(); ++it)
+	for (auto& i : bricks)
 	{
-		it->render(window);
+		i->render(window);
 	}
 }
 
-vector<Brick>& gm::Level::getBricks()
+ vector<unique_ptr<Brick>>& gm::Level::getBricks()
 {
-	return bricks;
+	 return bricks;
 }
 
 int Level::getSize() const
@@ -46,17 +48,13 @@ int Level::getSize() const
 
 void gm::Level::reset()
 {
-	for (auto it = bricks.begin(); it != bricks.end(); ++it)
+	for (auto& i : bricks)
 	{
-		it->reset();
+		i->reset();
 	}
 }
 
 gm::Level::~Level()
 {
-	for (auto it = bricks.begin(); it != bricks.end(); ++it)
-	{
-		delete &it;
-		bricks.erase(it);
-	}
+	bricks.clear();
 }

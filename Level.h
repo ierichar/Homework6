@@ -16,7 +16,7 @@ namespace gm {
 	{
 	private:
 		int size;
-		std::vector<Brick> bricks;
+		std::vector<std::unique_ptr<Brick>> bricks;
 	public:
 		// Constructor
 		// Takes a 2d array of ints / Enums(indicating what type of brick and where
@@ -30,7 +30,7 @@ namespace gm {
 		void render(sf::RenderWindow& window);
 
 		// Returns a reference or pointer to the object list of Bricks
-		std::vector<Brick>& getBricks();
+		std::vector<std::unique_ptr<Brick>>& getBricks();
 		int getSize() const;
 
 		// Resets all bricks in the level back to their default 

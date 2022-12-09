@@ -169,13 +169,10 @@
     <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Assets\clover-sans.ttf" />
     <Font Include="Assets\Fonts\arial.ttf" />
     <Font Include="Assets\Fonts\clover-sans.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\paddle_bounce.wav" />
-    <Media Include="Assets\score.wav" />
     <Media Include="Assets\Sounds\ball_lost.wav" />
     <Media Include="Assets\Sounds\break.wav" />
     <Media Include="Assets\Sounds\gameover.wav" />
@@ -183,8 +180,6 @@
     <Media Include="Assets\Sounds\paddle_bounce.wav" />
     <Media Include="Assets\Sounds\shatter.wav" />
     <Media Include="Assets\Sounds\wall_bounce.wav" />
-    <Media Include="Assets\victory.wav" />
-    <Media Include="Assets\wall_bounce.wav" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\brick.png" />

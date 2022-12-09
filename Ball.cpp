@@ -10,12 +10,14 @@ Ball::Ball(const Vector2f& position, const float radius)
 	: GameObject(position, Vector2f(radius, radius)) {
 	body.setPosition(position);
 	body.setRadius(radius);
+
 	velocity = Vector2f(0, 0);
+	speed_multiplier = 1.f;
 }
 
 void Ball::update(sf::RenderWindow& window) {
-	position.x += velocity.x * BALL_SPEED;
-	position.y += velocity.y * BALL_SPEED;
+	position.x += velocity.x * BALL_SPEED * speed_multiplier;
+	position.y += velocity.y * BALL_SPEED * speed_multiplier;
 
 	body.setPosition(position);
 	this->setPosition(position);
@@ -92,4 +94,9 @@ const float gm::Ball::dotProduct(const sf::Vector2f& v1, const sf::Vector2f& v2)
 	// Dot Product Formula
 	// x1 * x2 + y1 * y2
 	return ((v1.x * v2.x) + (v1.y * v2.y));
+}
+
+void Ball::increaseSpeed()
+{
+	speed_multiplier += 0.15f;
 }

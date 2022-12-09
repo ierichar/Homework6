@@ -17,7 +17,7 @@ namespace gm {
         public GameObject
     {
     private:
-        sf::RectangleShape body;
+        sf::RectangleShape* body;
         const BrickType* type;
         int hp; // set max hp in game settings
         bool isAlive;

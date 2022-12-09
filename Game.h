@@ -46,8 +46,8 @@ namespace gm {
 
 		SoundManager sound_manager;			// Sound Manager
 		// SoundBuffers
-		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy, loseLife;
-		sf::SoundBuffer normal_brick_sound, tough_brick_sound;
+		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy;
+		sf::SoundBuffer loseLife, levelComplete, gameOver;
 
 		UIManager ui_manager;				// UI Manager
 		PlayerController player_controller;	// Player Controller
@@ -93,7 +93,8 @@ namespace gm {
 
 		// Helper functions
 		void startLevel(const short level);
-		
+		void render_state();
+		void update_state();
 	};
 }
 

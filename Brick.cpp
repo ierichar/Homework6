@@ -9,21 +9,21 @@ Brick::Brick(BrickType* t, const sf::Vector2f& position, const sf::Vector2f& siz
 	type = t;
 	this->hp = t->hp;
 	this->isAlive = true;
-
-	body.setPosition(position);
-	body.setSize(size);
-	body.setFillColor(t->col);
+	body = new RectangleShape();
+	body->setPosition(position);
+	body->setSize(size);
+	body->setFillColor(t->col);
 }
 
 void Brick::update(sf::RenderWindow& window)
 {
-	body.setPosition(position);
-	this->setPosition(position);
+	body->setPosition(position);
+	this->setPosition(this->getPosition());
 }
 
 void Brick::render(sf::RenderWindow& window)
 {
-	window.draw(body);
+	window.draw(*body);
 }
 
 void Brick::setPosition(const sf::Vector2f& position)
@@ -45,8 +45,9 @@ void Brick::setHealth(const int hp)
 {
 	this->hp = hp;
 
-	if (hp == 0)
+	if (hp == 0) {
 		this->setAlive(false);
+	}
 }
 
 int Brick::getHealth() const
@@ -56,11 +57,11 @@ int Brick::getHealth() const
 
 void Brick::reset()
 {
-	this->isAlive = true;
 	this->hp = type->hp;
+	this->isAlive = true;
 }
 
 Brick::~Brick()
 {
-
+	type = nullptr;
 }

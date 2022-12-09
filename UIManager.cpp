@@ -7,22 +7,26 @@ using namespace std;
 UIManager::UIManager()
 {
 	str_text = "Left Click to START";
-	txt_position = Vector2f(825 / 2 - 200, 825 / 2);
+	txt_position = Vector2f(825 / 2 - 100, 825 / 2);
 
 
-	if (!font.loadFromFile("Assets/clover-sans.ttf")) {
+	if (!font.loadFromFile("Assets/Fonts/clover-sans.ttf")) {
 		// ERROR
 	}
 
-	game_text = new Text(str_text, font, TEXT_SIZE/4);
+	game_text = new Text(str_text, font, TEXT_SIZE/2);
 	game_text->setFillColor(Color::White);
 	game_text->setPosition(this->txt_position);
 
 	str_text = "";
+	txt_position.x = 100;
+	txt_position.y = 100;
 	score_text = new Text(str_text, font, TEXT_SIZE);
 	score_text->setFillColor(Color::White);
 	score_text->setPosition(this->txt_position);
 
+	txt_position.x = 700;
+	txt_position.y = 100;
 	lives_text = new Text(str_text, font, TEXT_SIZE);
 	score_text->setFillColor(Color::White);
 	score_text->setPosition(this->txt_position);
