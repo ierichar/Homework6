@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{2aef2c01-8ec1-4966-bce5-f5ba50e28f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Sounds">
+      <UniqueIdentifier>{dda6c240-668c-4b5d-a0a4-5ca593bc1c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{d71b6be6-8590-4a2e-93e8-aedc6aae4aa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -82,6 +91,12 @@
     <Font Include="Assets\clover-sans.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+    <Font Include="Assets\Fonts\arial.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Assets\Fonts\clover-sans.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\paddle_bounce.wav">
@@ -96,5 +111,34 @@
     <Media Include="Assets\wall_bounce.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="Assets\Sounds\ball_lost.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="Assets\Sounds\break.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="Assets\Sounds\gameover.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="Assets\Sounds\level_complete.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="Assets\Sounds\paddle_bounce.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="Assets\Sounds\shatter.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="Assets\Sounds\wall_bounce.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Textures\brick.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Assets\Textures\cracked brick.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

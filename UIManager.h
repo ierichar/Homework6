@@ -17,23 +17,21 @@ namespace gm {
 	class UIManager
 	{
 	protected:
-
 		// Position
-		sf::Vector2f position;
+		sf::Vector2f txt_position, score_position, lives_position;
 
 		// Text
 		sf::Font font;
-		sf::Text* text;
-		std::string str_text, score_text, lives_text;
+		sf::Text *game_text, *score_text, *lives_text;
+		std::string str_text;
 
 	public:
 		UIManager();
 		void update(sf::RenderWindow& window);
 		void render(sf::RenderWindow& window);
-		const std::string& getString();
-		void setString(const std::string str_text);
-		const sf::Vector2f& getPosition();
-		void setPosition(const sf::Vector2f& position);
+		void setGameText(const std::string str_text);
+		void setScoreText(const std::string str_text);
+		void setLivesText(const std::string str_text);
 		~UIManager();
 
 	};

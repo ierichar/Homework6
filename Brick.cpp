@@ -36,7 +36,7 @@ void Brick::setAlive(const bool isAlive)
 	this->isAlive = isAlive;
 }
 
-const bool Brick::getAlive()
+bool Brick::getAlive() const
 {
 	return this->isAlive;
 }
@@ -44,9 +44,12 @@ const bool Brick::getAlive()
 void Brick::setHealth(const int hp)
 {
 	this->hp = hp;
+
+	if (hp == 0)
+		this->setAlive(false);
 }
 
-const int Brick::getHealth()
+int Brick::getHealth() const
 {
 	return this->hp;
 }

@@ -28,9 +28,9 @@ namespace gm {
         virtual void setPosition(const sf::Vector2f& position);
         //virtual void move(const sf::Vector2f& force) override;
         void setAlive(const bool isAlive);
-        const bool getAlive();
+        bool getAlive() const;
         void setHealth(const int hp);
-        const int getHealth();
+        int getHealth() const;
         void reset();
         ~Brick();
 

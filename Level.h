@@ -15,7 +15,7 @@ namespace gm {
 	class Level 
 	{
 	private:
-		int numBricks;
+		int size;
 		std::vector<Brick> bricks;
 	public:
 		// Constructor
@@ -31,6 +31,7 @@ namespace gm {
 
 		// Returns a reference or pointer to the object list of Bricks
 		std::vector<Brick>& getBricks();
+		int getSize() const;
 
 		// Resets all bricks in the level back to their default 
 		// state(alive again with full health)

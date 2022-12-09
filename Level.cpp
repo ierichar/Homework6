@@ -8,7 +8,7 @@ gm::Level::Level(vector<pair<BrickType*, Vector2f>> v)
 {
 	Brick* newBrick;
 	short i = 0;
-	numBricks = v.size();
+	size = v.size();
 	for (auto it = v.begin(); it != v.end(); ++it)
 	{
 		newBrick = new Brick(it->first, it->second,
@@ -37,6 +37,11 @@ void gm::Level::render(sf::RenderWindow& window)
 vector<Brick>& gm::Level::getBricks()
 {
 	return bricks;
+}
+
+int Level::getSize() const
+{
+	return this->size;
 }
 
 void gm::Level::reset()

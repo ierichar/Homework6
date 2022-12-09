@@ -13,8 +13,8 @@ gm::SoundManager::SoundManager()
 
 void gm::SoundManager::playSFX(sf::SoundBuffer* cue)
 {
-	//sound.setBuffer(paddleBounce);
-	//sound.play();
+	sound.setBuffer(*cue);
+	sound.play();
 }
 
 void gm::SoundManager::restart()

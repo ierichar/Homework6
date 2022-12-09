@@ -35,7 +35,7 @@ namespace gm {
 
 	const short ROWS = 8;
 	const short COLUMNS = 14;
-	const short NUM_OF_BRICKS = 112;
+	const short NUM_OF_BRICKS = ROWS * COLUMNS;
 
 	/* Our Game Class                               *
 	 * Implements the Game Loop Programming Pattern */
@@ -45,6 +45,10 @@ namespace gm {
 		sf::RenderWindow window;			// Game Window
 
 		SoundManager sound_manager;			// Sound Manager
+		// SoundBuffers
+		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy, loseLife;
+		sf::SoundBuffer normal_brick_sound, tough_brick_sound;
+
 		UIManager ui_manager;				// UI Manager
 		PlayerController player_controller;	// Player Controller
 
@@ -59,6 +63,7 @@ namespace gm {
 			sf::Color::Red,
 		};
 
+		std::vector<std::unique_ptr<Brick>> bricks;
 		Level* level;						// Level (ref)
 
 		Paddle p1;
@@ -72,10 +77,6 @@ namespace gm {
 		short p1Lives = 0;	// Classic game rules: reach 4 lives = game over
 
 		bool isGameStart;
-
-		// SoundBuffers
-		sf::SoundBuffer paddleBounce, wallBounce, brickDamage, brickDestroy, loseLife;
-		sf::SoundBuffer normal_brick_sound, tough_brick_sound;
 
 	public:
 		/* Protoypes */
@@ -92,6 +93,7 @@ namespace gm {
 
 		// Helper functions
 		void startLevel(const short level);
+		
 	};
 }
 

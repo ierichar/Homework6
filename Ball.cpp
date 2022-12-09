@@ -14,8 +14,8 @@ Ball::Ball(const Vector2f& position, const float radius)
 }
 
 void Ball::update(sf::RenderWindow& window) {
-	position.x += velocity.x;
-	position.y += velocity.y;
+	position.x += velocity.x * BALL_SPEED;
+	position.y += velocity.y * BALL_SPEED;
 
 	body.setPosition(position);
 	this->setPosition(position);

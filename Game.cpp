@@ -18,14 +18,15 @@ Game::Game() : window(VideoMode(GAME_WIDTH, GAME_HEIGHT), "Game"),
 
 	ball(Vector2f(p1.getPosition().x, p1.getPosition().y - 2*BALL_RADIUS), BALL_RADIUS),
 	
-	// Initialize the number of boxes
-
 	isGameStart(false), 
 	sound_manager(), ui_manager(), player_controller(&p1), level(nullptr) {
 
 	// Set our fps to 60
 	window.setFramerateLimit(60);
 	currentLevel = 1;
+
+	// Load the sounds
+	
 }
 
 void Game::run() {
@@ -79,16 +80,59 @@ void Game::update() {
 		level->update(window);
 	}
 
+	for (size_t i = 0; i < bricks.size();)
+	{
+		Brick* b = bricks[i].get();
+		if (ball.collide(b->getCollider())) 
+		{
+			if (ball.getPosition().y > b->getPosition().y - BRICK_HEIGHT / 2) {
+				ball.bounce(Vector2f(0, 1));
+			}
+			else if (ball.getPosition().y < b->getPosition().y - BRICK_HEIGHT / 2) {
+				ball.bounce(Vector2f(0, -1));
+			}
+			ball.bounce(Vector2f(0, 1));		// Bounce ball
+			b->setHealth(b->getHealth() - 1); // Update ball health
+
+			cout << "bounce ball" << endl;
+
+			if (!(b->getAlive())) {
+				sound_manager.playSFX(&brickDestroy);
+				bricks.erase(bricks.begin() + i);
+				continue;
+			}
+			else {
+				sound_manager.playSFX(&brickDamage); // Play sound
+			}
+		}
+		++i;
+	}
+
 	if (ball.collide(p1.getCollider())) {
-		//sound.setBuffer(paddleBounce);
-		//sound_manager.playSFX(&paddleBounce);
+		sound_manager.playSFX(&paddleBounce);	// Play sound
 		ball.bounce(Vector2f(0, -1));
 	}
 
+	if (ball.collide(ceiling.getCollider())) {
+		sound_manager.playSFX(&wallBounce);	// Play sound
+		ball.bounce(Vector2f(0, 1));
+	}
+	if (ball.collide(leftWall.getCollider())) {
+		sound_manager.playSFX(&wallBounce);	// Play sound
+		ball.bounce(Vector2f(1, 0));
+	}
+	if (ball.collide(rightWall.getCollider())) {
+		sound_manager.playSFX(&wallBounce);	// Play sound
+		ball.bounce(Vector2f(-1, 0));
+	}
 	if (ball.collide(floor.getCollider())) {
-		isGameStart = false;
-
-		ui_manager.setString("GAME OVER");
+		sound_manager.playSFX(&loseLife);
+		++p1Lives;
+		if (p1Lives == 4)
+		{
+			isGameStart = false;
+			ui_manager.setGameText("GAME OVER");
+		}
 	}
 
 	//p1.update(window);
