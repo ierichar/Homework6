@@ -33,7 +33,6 @@ namespace gm {
 		void setScoreText(const std::string str_text);
 		void setLivesText(const std::string str_text);
 		~UIManager();
-
 	};
 }
 

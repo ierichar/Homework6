@@ -26,6 +26,7 @@ void gm::PlayerController::update(RenderWindow& window)
 	else if (paddle->getPosition().x + PADDLE_WIDTH / 2 < float(Mouse::getPosition(window).x)) {
 		paddle->move(moveRight);
 	}
+
 	paddle->update(window);
 }
 

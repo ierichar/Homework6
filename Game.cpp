@@ -85,7 +85,12 @@ void Game::handleInput() {
 				startLevel(currentLevel);
 				ui_manager.setGameText("LEVEL " + currentLevel);
 
-				ball.move(Vector2f(Random::Range(-0.5f, 0.5f), -1.f));
+				if (Random::Range(0, 1)) {
+					ball.move(Vector2f(0.5f, -1.f));
+				}
+				else {
+					ball.move(Vector2f(-0.5f, -1.f));
+				}
 			}
 		}
 
@@ -102,23 +107,30 @@ void Game::update() {
 		update_state();
 	}
 
+	// Hit the paddle
 	if (ball.collide(p1.getCollider())) {
 		sound_manager.playSFX(&paddleBounce);	// Play sound
 		ball.bounce(Vector2f(0, -1));
+		ball.increaseSpeed();	// increase speed
 	}
 
+	// Hit ceiling
 	if (ball.collide(ceiling.getCollider())) {
 		sound_manager.playSFX(&wallBounce);	// Play sound
 		ball.bounce(Vector2f(0, 1));
 	}
+	// Hit leftWall
 	if (ball.collide(leftWall.getCollider())) {
 		sound_manager.playSFX(&wallBounce);	// Play sound
 		ball.bounce(Vector2f(1, 0));
 	}
+	// Hit rightWall
 	if (ball.collide(rightWall.getCollider())) {
 		sound_manager.playSFX(&wallBounce);	// Play sound
 		ball.bounce(Vector2f(-1, 0));
 	}
+
+	// Hit the floor
 	if (ball.collide(floor.getCollider())) {
 		sound_manager.playSFX(&loseLife);
 		++p1Lives;
@@ -130,13 +142,15 @@ void Game::update() {
 		}
 	}
 
-	//p1.update(window);
 	if (isGameStart) {
 		ball.update(window);
 	}
 	else {
-		ball.setPosition(Vector2f(p1.getPosition().x, p1.getPosition().y - BALL_RADIUS * 2));
+		ball.setPosition(Vector2f(p1.getPosition().x + BALL_RADIUS*2, p1.getPosition().y - BALL_RADIUS * 2));
+		ball.update(window);
 	}
+
+	ui_manager.update(window);
 }
 
 // Implements the render portion of our Game Loop Programming Pattern
@@ -181,53 +195,63 @@ void Game::startLevel(const short lvl_num)
 	}
 
 	// TODO: start level based on number input
-	if (lvl_num == 1)
+
+	// Set 2D array of bricktypes and position
+	vector<pair<BrickType*, Vector2f>> newLevel;
+	Vector2f startPos = Vector2f(
+		leftWall.getPosition().x + PADDING,
+		ceiling.getPosition().y + PADDING * 20);
+	BrickType* brickType = &tough_brick;
+
+	// LEVEL 1 - 2 rows of tough, 2 of normal then repeat again
+	for (short i = 1; i <= NUM_OF_BRICKS; i++)
 	{
-		// Set 2D array of bricktypes and position
-		vector<pair<BrickType*, Vector2f>> newLevel;
-		Vector2f startPos = Vector2f(
-			ceiling.getPosition().y + PADDING,
-			leftWall.getPosition().x + PADDING);
-		BrickType* brickType = &tough_brick;
-
-		// LEVEL 1 - 2 rows of tough, 2 of normal then repeat again
-		for (short i = 1; i <= NUM_OF_BRICKS; i++)
-		{
-			if (i == NUM_OF_BRICKS / 4 + 1) {
-				// switch to normal brick type
-				brickType = &normal_brick;
-			}
-			else if (i == NUM_OF_BRICKS / 2 + 1) {
-				brickType = &tough_brick;
-			}
-			else if (i == NUM_OF_BRICKS * 3 / 4 + 1) {
-				brickType = &normal_brick;
-			}
+		if (i == NUM_OF_BRICKS / 4 + 1) {
+			// switch to normal brick type
+			brickType = &normal_brick;
+		}
+		else if (i == NUM_OF_BRICKS / 2 + 1) {
+			brickType = &tough_brick;
+		}
+		else if (i == NUM_OF_BRICKS * 3 / 4 + 1) {
+			brickType = &normal_brick;
+		}
 			
-			// Create pair
-			pair<BrickType*, Vector2f> newPair = make_pair(brickType, startPos);
-			newLevel.push_back(newPair);
-
-			// Set new pos
-			if (i % COLUMNS == 0) {
-				// New row
-				startPos.x = leftWall.getPosition().x + PADDING;
-				startPos.y += BRICK_HEIGHT + PADDING;
-			}
-			else {
-				startPos.x += BRICK_WIDTH + PADDING;
+		// Create pair
+		if (lvl_num == 1) {
+			if (i < (NUM_OF_BRICKS / 2) + 1 && i % 2 == 0) {
+				// add every other grid section
+				pair<BrickType*, Vector2f> newPair = make_pair(brickType, startPos);
+				newLevel.push_back(newPair);
 			}
 		}
-		level = new Level(newLevel);
-	}
-	if (lvl_num == 2)
-	{
+		else if (lvl_num == 2)
+		{
+			if (i < NUM_OF_BRICKS / 2 + 1) {
+				// add every grid section
+				pair<BrickType*, Vector2f> newPair = make_pair(brickType, startPos);
+				newLevel.push_back(newPair);
+			}
+		}
+		else { // lvl_num == 3
+			// add every grid section
+			pair<BrickType*, Vector2f> newPair = make_pair(brickType, startPos);
+			newLevel.push_back(newPair);
+		}
 
-	}
-	if (lvl_num == 3)
-	{
 
+
+		// Set new pos
+		if (i % COLUMNS == 0) {
+			// New row
+			startPos.x = leftWall.getPosition().x + PADDING;
+			startPos.y += BRICK_HEIGHT + PADDING;
+		}
+		else {
+			startPos.x += BRICK_WIDTH + PADDING;
+		}
 	}
+	level = new Level(newLevel);
 
 	// Reposition ball, paddle, score, bricks
 	isGameStart = true;
@@ -236,7 +260,7 @@ void Game::startLevel(const short lvl_num)
 	p1.setPosition(Vector2f(
 		GAME_WIDTH / 2 - PADDLE_WIDTH / 2, GAME_HEIGHT - PADDLE_HEIGHT * 2));
 	ball.setPosition(Vector2f(
-		p1.getPosition().x, p1.getPosition().y - BALL_RADIUS));
+		p1.getPosition().x - BALL_RADIUS*2, p1.getPosition().y - BALL_RADIUS*2));
 
 	bricks = move(level->getBricks());
 }
@@ -266,6 +290,7 @@ void Game::update_state()
 			}
 			// ball.bounce(Vector2f(0, 1));		// Bounce ball
 			b->setHealth(b->getHealth() - 1); // Update ball health
+			p1Score += 10;
 			ui_manager.setScoreText("" + p1Score);
 
 			if (!(b->getAlive())) {

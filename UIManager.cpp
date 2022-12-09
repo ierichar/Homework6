@@ -8,7 +8,8 @@ UIManager::UIManager()
 {
 	str_text = "Left Click to START";
 	txt_position = Vector2f(825 / 2 - 100, 825 / 2);
-
+	score_position = Vector2f(825 / 2 - 100, 825 / 2);
+	lives_position = Vector2f(825 / 2 - 100, 825 / 2);
 
 	if (!font.loadFromFile("Assets/Fonts/clover-sans.ttf")) {
 		// ERROR
@@ -19,23 +20,21 @@ UIManager::UIManager()
 	game_text->setPosition(this->txt_position);
 
 	str_text = "";
-	txt_position.x = 100;
-	txt_position.y = 100;
 	score_text = new Text(str_text, font, TEXT_SIZE);
 	score_text->setFillColor(Color::White);
-	score_text->setPosition(this->txt_position);
+	score_text->setPosition(this->score_position);
 
-	txt_position.x = 700;
-	txt_position.y = 100;
 	lives_text = new Text(str_text, font, TEXT_SIZE);
-	score_text->setFillColor(Color::White);
-	score_text->setPosition(this->txt_position);
+	lives_text->setFillColor(Color::White);
+	lives_text->setPosition(this->lives_position);
 
 }
 
 void UIManager::update(RenderWindow& window)
 {	
 	game_text->setPosition(this->txt_position);
+	score_text->setPosition(this->score_position);
+	lives_text->setPosition(this->lives_position);
 }
 
 void UIManager::render(RenderWindow& window)
